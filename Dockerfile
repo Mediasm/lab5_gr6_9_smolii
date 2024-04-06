@@ -2,7 +2,7 @@
 FROM scratch AS builder
 
 # Add the Alpine minirootfs
-ADD alpine-minirootfs-3.19.1-x86_64.tar.gz /
+ADD src/alpine-minirootfs-3.19.1-x86_64.tar.gz /
 
 # Install Node.js and npm
 RUN apk add --update nodejs npm
@@ -16,8 +16,9 @@ COPY package*.json ./
 # Install app dependencies including 'express'
 RUN npm install
 
-# Copy the rest of the application code
-COPY . .
+# Copy the necessary application code
+COPY index.js ./
+COPY src ./src
 
 # Stage 2: Create a minimal image using Nginx
 FROM nginx:alpine
