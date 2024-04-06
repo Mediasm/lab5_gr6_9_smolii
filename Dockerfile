@@ -45,7 +45,7 @@ EXPOSE 80
 
 # Healthcheck
 HEALTHCHECK --interval=30s --timeout=5s \
-  CMD curl -f http://localhost:8083 || exit 1
+  CMD curl -f http://localhost || exit 1
 
 # Start Nginx and the Node.js application
 CMD ["sh", "-c", "nginx & node /app/index.js"]
