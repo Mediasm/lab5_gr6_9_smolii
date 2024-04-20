@@ -1,26 +1,26 @@
-# Stage 1: Build the Node.js application
+# Stage 1: build node.js application
 FROM scratch AS builder
 
-# Add the Alpine minirootfs
+# Add the alpine minirootfs
 ADD src/alpine-minirootfs-3.19.1-x86_64.tar.gz /
 
-# Install Node.js and npm
+# install Node.js and npm
 RUN apk add --update nodejs npm
 
-# Set the working directory in the container
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json (if available) to work directory
+# Copy package.json and package-lock.json
 COPY package*.json ./
 
 # Install app dependencies including 'express'
 RUN npm install
 
-# Copy the necessary application code
+# Copy application code
 COPY index.js ./
 COPY src ./src
 
-# Stage 2: Create a minimal image using Nginx
+# Stage 2: Create a minimal image on Nginx
 FROM nginx:alpine
 
 # Build argument for version
